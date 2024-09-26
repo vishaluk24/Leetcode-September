@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+        int n=arr1.size();
+        int m=arr2.size();
+        unordered_set<int> st;
+        for(int i=0;i<n;i++){
+            int temp=arr1[i];
+            st.insert(temp);
+            while(temp>0){
+                temp/=10;
+                st.insert(temp);
+            }
+        }
+        int ans=0;
+        for(int i=0;i<m;i++){
+            int tp=arr2[i];
+            int tr = tp;
+            int size=0;
+            while(tp>0){
+                tp/=10;
+                size++;
+            }
+            int k=0;
+            int pw=pow(10,size);
+            while(pw>1) {
+                pw/=10;
+                if(st.count(tr/pw)){
+                    k++;
+                }
+                else{
+                    break;
+                }
+            }
+            ans=max(ans,k);
+        }
+    return ans;
+    }
+};
